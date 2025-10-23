@@ -14,7 +14,7 @@ jobs:
       - run: flutter analyze
       - run: dart format -o none --set-exit-if-changed .
       - run: dart pub global activate dart_dependency_checker_cli
-      - run: ddc dun
+      - run: ddc dun --di build_runner,build_version,very_good_analysis
       - run: ddc tu
 
   test:
