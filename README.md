@@ -1,2 +1,2 @@
-# fmtr
+# Fmtr
 Sort, format, transform etc.
