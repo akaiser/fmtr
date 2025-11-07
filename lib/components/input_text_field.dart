@@ -27,7 +27,7 @@ class InputTextField extends StatelessWidget {
     ),
     child: ValueListenableBuilder(
       valueListenable: valueNotifier,
-      builder: (_, valueText, _) => TextFieldFooter(valueText),
+      builder: (_, value, _) => TextFieldFooter(value),
     ),
   );
 }
