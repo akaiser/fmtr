@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OutputTextField extends StatelessWidget {
   const OutputTextField(this.notifier);
 
-  final ValueNotifier<String?> notifier;
+  final ValueNotifier<String> notifier;
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
@@ -16,7 +16,7 @@ class OutputTextField extends StatelessWidget {
         border: const OutlineInputBorder(),
         labelText: 'Out',
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        counter: Text('${value?.length ?? 0}'),
+        counter: Text('${value.length}'),
       ),
     ),
   );

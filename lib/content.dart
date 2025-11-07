@@ -17,7 +17,7 @@ class _ContentState extends State<Content> {
   final _operationNotifier = ValueNotifier<Operation>(Operation.alpha);
   final _inputValueNotifier = ValueNotifier<String>('');
   final _inputErrorNotifier = ValueNotifier<String?>(null);
-  final _outputValueNotifier = ValueNotifier<String?>(null);
+  final _outputValueNotifier = ValueNotifier<String>('');
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _ContentState extends State<Content> {
 
     if (trimmedText.isEmpty) {
       _inputErrorNotifier.value = null;
-      _outputValueNotifier.value = null;
+      _outputValueNotifier.value = '';
       return;
     }
 
