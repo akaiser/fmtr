@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fmtr/_version.dart';
-import 'package:fmtr/body.dart';
+import 'package:fmtr/content.dart';
 
 Future<void> main() async {
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fmtr v$packageVersion',
-      home: Scaffold(body: Body()),
+      title: 'fmtr v$packageVersion',
+      home: Scaffold(
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(16),
+          child: Content(),
+        ),
+      ),
     ),
   );
 }
