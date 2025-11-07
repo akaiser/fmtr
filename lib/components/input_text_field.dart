@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fmtr/components/text_field_footer.dart';
 
 class InputTextField extends StatelessWidget {
   const InputTextField({
@@ -26,7 +27,7 @@ class InputTextField extends StatelessWidget {
     ),
     child: ValueListenableBuilder(
       valueListenable: valueNotifier,
-      builder: (_, valueText, _) => Text('${valueText.length}'),
+      builder: (_, value, _) => TextFieldFooter(value),
     ),
   );
 }
