@@ -9,8 +9,8 @@ class TextFieldFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
     spacing: 8,
-    mainAxisAlignment: MainAxisAlignment.end,
     children: [
       Text('${text.length}'),
       _CopyButton(text),
