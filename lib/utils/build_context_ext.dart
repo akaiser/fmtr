@@ -6,10 +6,7 @@ extension BuildContextExt on BuildContext {
   void showSnackBar(SnackBar snackBar) =>
       ScaffoldMessenger.of(this).showSnackBar(snackBar);
 
-  /* Theme */
   ThemeData get td => Theme.of(this);
 
   ColorScheme get cs => td.colorScheme;
-
-  TextTheme get tt => td.textTheme;
 }

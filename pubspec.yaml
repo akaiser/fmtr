@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  provider: ^6.1.5+1
+
 dev_dependencies:
   build_runner: ^2.10.1
   build_version: ^2.1.3
