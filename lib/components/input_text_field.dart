@@ -4,20 +4,20 @@ import 'package:fmtr/utils/build_context_ext.dart';
 
 class InputTextField extends StatelessWidget {
   const InputTextField({
-    required this.valueNotifier,
-    required this.errorNotifier,
+    required this.inputValueNotifier,
+    required this.inputErrorNotifier,
   });
 
-  final ValueNotifier<String> valueNotifier;
-  final ValueNotifier<String?> errorNotifier;
+  final ValueNotifier<String> inputValueNotifier;
+  final ValueNotifier<String?> inputErrorNotifier;
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
-    valueListenable: errorNotifier,
+    valueListenable: inputErrorNotifier,
     builder: (context, error, counter) => TextField(
       autofocus: true,
       maxLines: null,
-      onChanged: (text) => valueNotifier.value = text,
+      onChanged: (text) => inputValueNotifier.value = text,
       decoration: InputDecoration(
         error: error != null ? _Error(error) : null,
         border: const OutlineInputBorder(),
@@ -27,7 +27,7 @@ class InputTextField extends StatelessWidget {
       ),
     ),
     child: ValueListenableBuilder(
-      valueListenable: valueNotifier,
+      valueListenable: inputValueNotifier,
       builder: (_, value, _) => TextFieldFooter(value),
     ),
   );

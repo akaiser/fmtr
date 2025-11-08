@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fmtr/_operation.dart';
 import 'package:fmtr/utils/iterable_ext.dart';
-
-enum Operation {
-  alpha._('Alphabetize'),
-  json._('pretty JSON');
-
-  const Operation._(this.label);
-
-  final String label;
-}
 
 class OperationSegments extends StatelessWidget {
   const OperationSegments(this.notifier);
@@ -20,6 +12,7 @@ class OperationSegments extends StatelessWidget {
     valueListenable: notifier,
     builder: (context, value, child) => SegmentedButton<Operation>(
       selected: {value},
+      showSelectedIcon: false,
       segments: Operation.values
           .map(
             (operation) => ButtonSegment<Operation>(
