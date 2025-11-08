@@ -10,9 +10,10 @@ class TextFieldFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
     mainAxisSize: MainAxisSize.min,
-    spacing: 8,
     children: [
+      const SizedBox(width: 8),
       Text('${text.length}'),
+      const SizedBox(width: 8),
       _CopyButton(text),
     ],
   );
@@ -32,7 +33,10 @@ class _CopyButton extends StatelessWidget {
       await Clipboard.setData(ClipboardData(text: text));
       if (context.mounted) {
         context.showSnackBar(
-          const SnackBar(content: Text('Text copied to clipboard')),
+          const SnackBar(
+            content: Text('Text copied to clipboard'),
+            showCloseIcon: true,
+          ),
         );
       }
     },
