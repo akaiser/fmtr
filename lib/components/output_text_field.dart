@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fmtr/components/text_field_footer.dart';
+import 'package:fmtr/components/_text_field_footer.dart';
 import 'package:fmtr/provider/output_provider.dart';
 import 'package:provider/provider.dart';
 

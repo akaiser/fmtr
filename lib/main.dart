@@ -9,7 +9,9 @@ import 'package:fmtr/provider/output_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  Settings.init();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Settings.init();
 
   runApp(
     MultiProvider(
