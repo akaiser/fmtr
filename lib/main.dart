@@ -14,15 +14,16 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => OperationProvider()),
         ChangeNotifierProvider(create: (_) => InputErrorProvider()),
         ChangeNotifierProvider(create: (_) => InputProvider()),
+        ChangeNotifierProvider(create: (_) => OperationProvider()),
         ChangeNotifierProvider(create: (_) => OutputProvider()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        darkTheme: ThemeData.dark(),
         title: 'fmtr v$packageVersion',
-        home: Scaffold(
+        home: const Scaffold(
           body: SingleChildScrollView(
             padding: EdgeInsets.all(16),
             child: Content(),
