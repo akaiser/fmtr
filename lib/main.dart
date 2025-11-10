@@ -24,7 +24,7 @@ Future<void> main() async {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData.dark(),
-        title: 'fmtr v$packageVersion',
+        title: 'Fmtr v$packageVersion',
         home: const Scaffold(
           body: SingleChildScrollView(
             padding: EdgeInsets.all(16),
