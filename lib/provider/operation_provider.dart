@@ -9,7 +9,7 @@ class OperationProvider with ChangeNotifier {
 
   Operation get operation => _operation;
 
-  void setOperation(Operation operation) {
+  set operation(Operation operation) {
     unawaited(Settings.setOperation(_operation = operation));
     notifyListeners();
   }

@@ -14,7 +14,7 @@ class InputTextField extends StatelessWidget {
     builder: (context, error, counter) => TextField(
       autofocus: true,
       maxLines: null,
-      onChanged: (value) => context.read<InputProvider>().setInput(value),
+      onChanged: (value) => context.inputProvider.input = value,
       decoration: InputDecoration(
         error: error != null ? _Error(error) : null,
         border: const OutlineInputBorder(),
@@ -40,4 +40,8 @@ class _Error extends StatelessWidget {
     text,
     style: TextStyle(color: context.cs.error),
   );
+}
+
+extension on BuildContext {
+  InputProvider get inputProvider => read();
 }

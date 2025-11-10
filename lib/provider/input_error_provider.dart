@@ -5,7 +5,7 @@ class InputErrorProvider with ChangeNotifier {
 
   String? get error => _error;
 
-  void setError(String? error) {
+  set error(String? error) {
     _error = error;
     notifyListeners();
   }

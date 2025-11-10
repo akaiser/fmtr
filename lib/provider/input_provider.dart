@@ -5,7 +5,7 @@ class InputProvider with ChangeNotifier {
 
   String get input => _input;
 
-  void setInput(String input) {
+  set input(String input) {
     _input = input;
     notifyListeners();
   }

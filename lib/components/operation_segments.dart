@@ -20,7 +20,7 @@ class OperationSegments extends StatelessWidget {
             ),
           )
           .unmodifiable,
-      onSelectionChanged: (changed) => provider.setOperation(changed.single),
+      onSelectionChanged: (changed) => provider.operation = changed.single,
     ),
   );
 }

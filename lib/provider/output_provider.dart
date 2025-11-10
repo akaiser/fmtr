@@ -5,7 +5,7 @@ class OutputProvider with ChangeNotifier {
 
   String get output => _output;
 
-  void setOutput(String output) {
+  set output(String output) {
     _output = output;
     notifyListeners();
   }

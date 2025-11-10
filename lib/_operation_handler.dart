@@ -30,14 +30,8 @@ class OperationHandler {
   }
 
   void dispose() {
-    _inputErrorProvider.dispose();
-    _inputProvider
-      ..removeListener(_onChange)
-      ..dispose();
-    _operationProvider
-      ..removeListener(_onChange)
-      ..dispose();
-    _outputProvider.dispose();
+    _inputProvider.removeListener(_onChange);
+    _operationProvider.removeListener(_onChange);
   }
 
   void _onChange() {
@@ -57,13 +51,13 @@ class OperationHandler {
 
       _setOutput(output);
     } on Exception catch (ex) {
-      _inputErrorProvider.setError('$ex');
+      _inputErrorProvider.error = '$ex';
     }
   }
 
   void _setOutput(String output) {
-    _inputErrorProvider.setError(null);
-    _outputProvider.setOutput(output);
+    _inputErrorProvider.error = null;
+    _outputProvider.output = output;
   }
 }
 
