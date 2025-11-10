@@ -1,7 +1,7 @@
 name: fmtr
-description: "Sort, format, transform etc."
+description: "Fmtr is a minimalistic online text formatter. Sorts, cleans and prettifies JSON instantly."
 publish_to: "none"
-version: 1.0.2
+version: 1.0.3
 
 environment:
   sdk: ^3.9.0
