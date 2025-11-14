@@ -420,6 +420,7 @@ class CompiledApp {
       _1312: s => JSON.stringify(s),
       _1313: s => printToConsole(s),
       _1314: (o, p, r) => o.replaceAll(p, () => r),
+      _1315: (o, p, r) => o.replace(p, () => r),
       _1316: Function.prototype.call.bind(String.prototype.toLowerCase),
       _1317: s => s.toUpperCase(),
       _1318: s => s.trim(),
@@ -645,9 +646,9 @@ class CompiledApp {
       _1513: Function.prototype.call.bind(BigInt.prototype.toString),
       _1514: Function.prototype.call.bind(Number.prototype.toString),
       _1515: (d, digits) => d.toFixed(digits),
-      _3394: () => globalThis.window,
-      _3721: x0 => x0.localStorage,
-      _4054: x0 => x0.length,
+      _3398: () => globalThis.window,
+      _3725: x0 => x0.localStorage,
+      _4058: x0 => x0.length,
 
     };
 
