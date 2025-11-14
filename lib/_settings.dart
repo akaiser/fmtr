@@ -64,7 +64,9 @@ abstract final class Settings {
       .then(_optionsFromString)
       .then((resolved) {
         final hasExpectedLength = resolved.length == fallback.length;
-        final hasInvalidOptions = resolved.isLowercase && resolved.isUppercase;
+        final hasInvalidOptions =
+            resolved.hasEnabledLowercase && resolved.hasEnabledUppercase;
+
         return hasExpectedLength && !hasInvalidOptions ? resolved : fallback;
       })
       // in browser it is easy to mess up the stored value

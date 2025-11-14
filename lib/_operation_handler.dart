@@ -51,9 +51,9 @@ class OperationHandler {
 
       switch (_operationProvider.operation) {
         case Operation.alphabetize:
-          var lines = trimmedInput.lines.sorted(options.isIgnoreCase);
+          var lines = trimmedInput.lines.sorted(options.hasEnabledIgnoreCase);
 
-          if (options.isReverse) {
+          if (options.hasEnabledReverse) {
             lines = lines.reversed;
           }
           output = lines.joined;
@@ -63,20 +63,20 @@ class OperationHandler {
           lines = lines.map((line) {
             var _line = line;
 
-            if (options.isStandardizeSpacing) {
+            if (options.hasEnabledStandardizeSpacing) {
               _line = _line.replaceAll(_whitespaceRegex, ' ');
             }
 
-            if (options.isLowercase) {
+            if (options.hasEnabledLowercase) {
               _line = _line.toLowerCase();
-            } else if (options.isUppercase) {
+            } else if (options.hasEnabledUppercase) {
               _line = _line.toUpperCase();
             }
 
             return _line;
           });
 
-          if (options.isRemoveDuplicates) {
+          if (options.hasEnabledRemoveDuplicates) {
             lines = lines.unique;
           }
 
@@ -107,8 +107,8 @@ extension on Iterable<String> {
   Iterable<String> get notEmpty => where((line) => line.isNotEmpty);
 
   // ignore: avoid_positional_boolean_parameters
-  Iterable<String> sorted(bool isIgnoreCase) => sort(
-    (a, b) => isIgnoreCase
+  Iterable<String> sorted(bool withIgnoreCase) => sort(
+    (a, b) => withIgnoreCase
         ? a.toLowerCase().compareTo(b.toLowerCase())
         : a.compareTo(b),
   );

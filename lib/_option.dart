@@ -18,15 +18,17 @@ extension OptionExt on Option {
 }
 
 extension OptionsMapExt on Map<Option, bool> {
-  bool get isIgnoreCase => this[Option.ignoreCase] ?? false;
+  bool _enabled(Option option) => this[option] ?? false;
 
-  bool get isReverse => this[Option.reverse] ?? false;
+  bool get hasEnabledIgnoreCase => _enabled(Option.ignoreCase);
 
-  bool get isRemoveDuplicates => this[Option.removeDuplicates] ?? false;
+  bool get hasEnabledReverse => _enabled(Option.reverse);
 
-  bool get isStandardizeSpacing => this[Option.standardizeSpacing] ?? false;
+  bool get hasEnabledRemoveDuplicates => _enabled(Option.removeDuplicates);
 
-  bool get isLowercase => this[Option.lowercase] ?? false;
+  bool get hasEnabledStandardizeSpacing => _enabled(Option.standardizeSpacing);
 
-  bool get isUppercase => this[Option.uppercase] ?? false;
+  bool get hasEnabledLowercase => _enabled(Option.lowercase);
+
+  bool get hasEnabledUppercase => _enabled(Option.uppercase);
 }
