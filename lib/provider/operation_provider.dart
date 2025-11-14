@@ -28,7 +28,7 @@ class OperationProvider with ChangeNotifier {
     if (enabled) {
       if (option.isLowercase) {
         _updateOption(Option.uppercase, false);
-      } else if (option.isLowercase) {
+      } else if (option.isUppercase) {
         _updateOption(Option.lowercase, false);
       }
     }
