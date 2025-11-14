@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class InputErrorProvider with ChangeNotifier {
   String? _error;
@@ -9,4 +10,8 @@ class InputErrorProvider with ChangeNotifier {
     _error = error;
     notifyListeners();
   }
+}
+
+extension BuildContextExt on BuildContext {
+  InputErrorProvider get inputErrorProvider => read();
 }

@@ -1,14 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:fmtr/_operation_handler.dart';
-import 'package:fmtr/components/input_text_field.dart';
-import 'package:fmtr/components/operation_segments.dart';
-import 'package:fmtr/components/output_text_field.dart';
+import 'package:fmtr/components/input_text.dart';
+import 'package:fmtr/components/operations.dart';
+import 'package:fmtr/components/output_text.dart';
 import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/provider/operation_provider.dart';
 import 'package:fmtr/provider/output_provider.dart';
 import 'package:fmtr/utils/build_context_ext.dart';
-import 'package:provider/provider.dart';
 
 class Content extends StatefulWidget {
   const Content();
@@ -19,10 +18,10 @@ class Content extends StatefulWidget {
 
 class _ContentState extends State<Content> {
   late final _operationHandler = OperationHandler(
-    inputErrorProvider: context.read<InputErrorProvider>(),
-    inputProvider: context.read<InputProvider>(),
-    operationProvider: context.read<OperationProvider>(),
-    outputProvider: context.read<OutputProvider>(),
+    inputErrorProvider: context.inputErrorProvider,
+    inputProvider: context.inputProvider,
+    operationProvider: context.operationProvider,
+    outputProvider: context.outputProvider,
   );
 
   @override
@@ -41,14 +40,14 @@ class _ContentState extends State<Content> {
   Widget build(BuildContext context) => Column(
     spacing: 16,
     children: [
-      const OperationSegments(),
+      const Operations(),
       ConstrainedBox(
         constraints: BoxConstraints(
-          maxHeight: context.screenSize.height / 2 - 16,
+          maxHeight: context.screenSize.height / 2 - 64,
         ),
-        child: const InputTextField(),
+        child: const InputText(),
       ),
-      const OutputTextField(),
+      const OutputText(),
     ],
   );
 }

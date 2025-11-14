@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:fmtr/components/_text_field_footer.dart';
+import 'package:fmtr/components/_text_footer.dart';
 import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/utils/build_context_ext.dart';
 import 'package:provider/provider.dart';
 
-class InputTextField extends StatelessWidget {
-  const InputTextField();
+class InputText extends StatelessWidget {
+  const InputText();
 
   @override
   Widget build(BuildContext context) => Selector<InputErrorProvider, String?>(
@@ -24,8 +24,9 @@ class InputTextField extends StatelessWidget {
       ),
     ),
 
-    child: Consumer<InputProvider>(
-      builder: (_, provider, _) => TextFieldFooter(provider.input),
+    child: Selector<InputProvider, String>(
+      selector: (_, provider) => provider.input,
+      builder: (_, input, _) => TextFooter(input),
     ),
   );
 }
@@ -40,8 +41,4 @@ class _Error extends StatelessWidget {
     text,
     style: TextStyle(color: context.cs.error),
   );
-}
-
-extension on BuildContext {
-  InputProvider get inputProvider => read();
 }
