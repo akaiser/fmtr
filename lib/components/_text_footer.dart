@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fmtr/utils/build_context_ext.dart';
 
-class TextFieldFooter extends StatelessWidget {
-  const TextFieldFooter(this.text, {super.key});
+class TextFooter extends StatelessWidget {
+  const TextFooter(this.text, {super.key});
 
   final String text;
 

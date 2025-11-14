@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:fmtr/_operation.dart';
+import 'package:fmtr/_option.dart';
 import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/provider/operation_provider.dart';
 import 'package:fmtr/provider/output_provider.dart';
+import 'package:fmtr/utils/iterable_ext.dart';
 
+final _whitespaceRegex = RegExp(r'\s+');
 const _jsonEncoder = JsonEncoder.withIndent('  ');
 
 class OperationHandler {
@@ -43,11 +46,44 @@ class OperationHandler {
     }
 
     try {
-      final output = switch (_operationProvider.operation) {
-        Operation.alpha => trimmedInput.lines.sorted.joined,
-        Operation.dedupe => trimmedInput.lines.unique.joined,
-        Operation.json => _jsonEncoder.convert(jsonDecode(trimmedInput)),
-      };
+      final String output;
+      final options = _operationProvider.options;
+
+      switch (_operationProvider.operation) {
+        case Operation.alphabetize:
+          var lines = trimmedInput.lines.sorted(options.hasEnabledIgnoreCase);
+
+          if (options.hasEnabledReverse) {
+            lines = lines.reversed;
+          }
+          output = lines.joined;
+        case Operation.normalize:
+          var lines = trimmedInput.lines;
+
+          lines = lines.map((line) {
+            var _line = line;
+
+            if (options.hasEnabledStandardizeSpacing) {
+              _line = _line.replaceAll(_whitespaceRegex, ' ');
+            }
+
+            if (options.hasEnabledLowercase) {
+              _line = _line.toLowerCase();
+            } else if (options.hasEnabledUppercase) {
+              _line = _line.toUpperCase();
+            }
+
+            return _line;
+          });
+
+          if (options.hasEnabledRemoveDuplicates) {
+            lines = lines.unique;
+          }
+
+          output = lines.joined;
+        case Operation.json:
+          output = _jsonEncoder.convert(jsonDecode(trimmedInput));
+      }
 
       _setOutput(output);
     } on Exception catch (ex) {
@@ -70,9 +106,16 @@ extension on Iterable<String> {
 
   Iterable<String> get notEmpty => where((line) => line.isNotEmpty);
 
-  Iterable<String> get sorted => toList()..sort();
+  // ignore: avoid_positional_boolean_parameters
+  Iterable<String> sorted(bool withIgnoreCase) => sort(
+    (a, b) => withIgnoreCase
+        ? a.toLowerCase().compareTo(b.toLowerCase())
+        : a.compareTo(b),
+  );
 
-  Set<String> get unique => toSet();
+  Iterable<String> get reversed => toList().reversed;
+
+  Iterable<String> get unique => toSet();
 
   String get joined => join('\n');
 }

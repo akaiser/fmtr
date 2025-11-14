@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class OutputProvider with ChangeNotifier {
   var _output = '';
@@ -9,4 +10,8 @@ class OutputProvider with ChangeNotifier {
     _output = output;
     notifyListeners();
   }
+}
+
+extension BuildContextExt on BuildContext {
+  OutputProvider get outputProvider => read();
 }
