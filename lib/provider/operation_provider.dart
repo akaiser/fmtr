@@ -23,13 +23,13 @@ class OperationProvider with ChangeNotifier {
   }
 
   void updateOption(Option option, {required bool enabled}) {
-    _updateOptions(option, enabled);
+    _updateOption(option, enabled);
 
     if (enabled) {
       if (option.isLowercase) {
-        _updateOptions(Option.uppercase, false);
+        _updateOption(Option.uppercase, false);
       } else if (option.isLowercase) {
-        _updateOptions(Option.lowercase, false);
+        _updateOption(Option.lowercase, false);
       }
     }
 
@@ -37,7 +37,7 @@ class OperationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void _updateOptions(Option option, bool enabled) {
+  void _updateOption(Option option, bool enabled) {
     _options[operation].let((options) => options[option] = enabled);
   }
 }
