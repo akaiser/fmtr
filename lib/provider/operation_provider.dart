@@ -33,12 +33,12 @@ class OperationProvider with ChangeNotifier {
       }
     }
 
-    unawaited(Settings.setOptions(operation, options));
+    unawaited(Settings.setOptions(_operation, options));
     notifyListeners();
   }
 
   void _updateOption(Option option, bool enabled) {
-    _options[operation].let((options) => options[option] = enabled);
+    options.let((options) => options[option] = enabled);
   }
 }
 
