@@ -5,7 +5,8 @@ enum Option {
   ignoreCase._('Ignore case'),
   lowercase._('Lowercase'),
   uppercase._('Uppercase'),
-  removeDuplicates._('Remove duplicates');
+  removeDuplicates._('Remove duplicates'),
+  ;
 
   const Option._(this.label);
 
