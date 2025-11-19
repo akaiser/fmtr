@@ -50,38 +50,67 @@ class OperationHandler {
       final options = _operationProvider.options;
 
       switch (_operationProvider.operation) {
-        case Operation.alphabetize:
-          var lines = trimmedInput.lines.sorted(options.hasEnabledIgnoreCase);
+        case Operation.normalization:
+          final standardizeSpacing = options.hasEnabledStandardizeSpacing;
+          final sortAlphabetically = options.hasEnabledSortAlphabetically;
+          final removeDuplicates = options.hasEnabledRemoveDuplicates;
+          final reverseOrder = options.hasEnabledReverseOrder;
+          final lowercase = options.hasEnabledLowercase;
+          final uppercase = options.hasEnabledUppercase;
+          final ignoreCase = options.hasEnabledIgnoreCase;
 
-          if (options.hasEnabledReverse) {
-            lines = lines.reversed;
-          }
-          output = lines.joined;
-        case Operation.normalize:
-          var lines = trimmedInput.lines;
+          // Pipeline:
+          // 1. Standardize spacing
+          // 2. Case normalization
+          // 3. Remove duplicates (stable)
+          // 4. Sort alphabetically
+          // 5. Reverse order
 
-          lines = lines.map((line) {
+          var result = <String>[];
+          final seen = removeDuplicates ? <String>{} : null;
+
+          for (final line in trimmedInput.lines) {
             var _line = line;
 
-            if (options.hasEnabledStandardizeSpacing) {
+            // 1. Standardize spacing
+            if (standardizeSpacing) {
               _line = _line.replaceAll(_whitespaceRegex, ' ');
             }
 
-            if (options.hasEnabledLowercase) {
+            // 2. Case normalization
+            if (lowercase) {
               _line = _line.toLowerCase();
-            } else if (options.hasEnabledUppercase) {
+            } else if (uppercase) {
               _line = _line.toUpperCase();
             }
 
-            return _line;
-          });
+            // 3. Remove duplicates
+            if (removeDuplicates) {
+              final key = ignoreCase ? _line.toLowerCase() : _line;
+              if (seen != null && !seen.add(key)) {
+                continue;
+              }
+            }
 
-          if (options.hasEnabledRemoveDuplicates) {
-            lines = lines.unique;
+            result.add(_line);
           }
 
-          output = lines.joined;
-        case Operation.json:
+          // 4. Sort alphabetically
+          if (sortAlphabetically) {
+            result.sort(
+              (a, b) => ignoreCase
+                  ? a.toLowerCase().compareTo(b.toLowerCase())
+                  : a.compareTo(b),
+            );
+          }
+
+          // 5. Reverse
+          if (reverseOrder) {
+            result = result.reversed.unmodifiable;
+          }
+
+          output = result.joined;
+        case Operation.prettyJson:
           output = _jsonEncoder.convert(jsonDecode(trimmedInput));
       }
 
@@ -105,17 +134,6 @@ extension on Iterable<String> {
   Iterable<String> get trimmed => map((line) => line.trim());
 
   Iterable<String> get notEmpty => where((line) => line.isNotEmpty);
-
-  // ignore: avoid_positional_boolean_parameters
-  Iterable<String> sorted(bool withIgnoreCase) => sort(
-    (a, b) => withIgnoreCase
-        ? a.toLowerCase().compareTo(b.toLowerCase())
-        : a.compareTo(b),
-  );
-
-  Iterable<String> get reversed => toList().reversed;
-
-  Iterable<String> get unique => toSet();
 
   String get joined => join('\n');
 }

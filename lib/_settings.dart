@@ -5,11 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _keyPrefix = 'de.kaiserv.fmtr';
 const _operationKey = '$_keyPrefix.operation';
 
-const _operationsKeyPrefix = '$_keyPrefix.operations',
-    _operationAlphabetizeOptionsKey =
-        '$_operationsKeyPrefix.alphabetize.options',
-    _operationNormalizeOptionsKey = //
-        '$_operationsKeyPrefix.normalize.options';
+const _operationsKeyPrefix = //
+        '$_keyPrefix.operations',
+    _operationNormalizationOptionsKey =
+        '$_operationsKeyPrefix.normalization.options';
 
 abstract final class Settings {
   static final _preferences = SharedPreferencesAsync();
@@ -23,7 +22,7 @@ abstract final class Settings {
   }
 
   static Future<Operation> get _initOperation {
-    const fallback = Operation.alphabetize;
+    const fallback = Operation.normalization;
     return _getOrSet(_operationKey, () => fallback.name)
         .then(
           (resolved) => Operation.values.firstWhere(
@@ -41,20 +40,19 @@ abstract final class Settings {
   ).then((_) => operation);
 
   static Future<Map<Operation, Map<Option, bool>>> get _initOptions async => {
-    Operation.alphabetize: await Settings._getOptions(
-      Operation.alphabetize,
+    Operation.normalization: await Settings._getOptions(
+      Operation.normalization,
       {
-        Option.ignoreCase: true,
-        Option.reverse: false,
+        Option.standardizeSpacing: true,
+        Option.sortAlphabetically: true,
+        Option.reverseOrder: false,
+        Option.ignoreCase: false,
+        Option.lowercase: false,
+        Option.uppercase: false,
+        Option.removeDuplicates: false,
       },
     ),
-    Operation.normalize: await Settings._getOptions(Operation.normalize, {
-      Option.removeDuplicates: true,
-      Option.standardizeSpacing: true,
-      Option.lowercase: false,
-      Option.uppercase: false,
-    }),
-    Operation.json: const {},
+    Operation.prettyJson: const {},
   };
 
   static Future<Map<Option, bool>> _getOptions(
@@ -64,10 +62,10 @@ abstract final class Settings {
       .then(_optionsFromString)
       .then((resolved) {
         final hasExpectedLength = resolved.length == fallback.length;
-        final hasInvalidOptions =
-            resolved.hasEnabledLowercase && resolved.hasEnabledUppercase;
 
-        return hasExpectedLength && !hasInvalidOptions ? resolved : fallback;
+        return hasExpectedLength && !resolved.hasInvalidCaseOptions
+            ? resolved
+            : fallback;
       })
       // in browser it is easy to mess up the stored value
       .then((options) => setOptions(operation, options));
@@ -115,8 +113,7 @@ abstract final class Settings {
 
 extension on Operation {
   String get key => switch (this) {
-    Operation.alphabetize => _operationAlphabetizeOptionsKey,
-    Operation.normalize => _operationNormalizeOptionsKey,
-    Operation.json => throw UnimplementedError(),
+    Operation.normalization => _operationNormalizationOptionsKey,
+    Operation.prettyJson => throw UnimplementedError(),
   };
 }

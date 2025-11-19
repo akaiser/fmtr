@@ -8,5 +8,7 @@ extension BuildContextExt on BuildContext {
 
   ThemeData get td => Theme.of(this);
 
+  TextStyle get dts => DefaultTextStyle.of(this).style;
+
   ColorScheme get cs => td.colorScheme;
 }
