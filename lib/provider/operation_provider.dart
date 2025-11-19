@@ -28,8 +28,12 @@ class OperationProvider with ChangeNotifier {
     if (enabled) {
       if (option.isLowercase) {
         _updateOption(Option.uppercase, false);
+        _updateOption(Option.ignoreCase, false);
       } else if (option.isUppercase) {
         _updateOption(Option.lowercase, false);
+        _updateOption(Option.ignoreCase, false);
+      } else if (option.isRemoveDuplicates) {
+        _updateOption(Option.ignoreCase, false);
       }
     }
 

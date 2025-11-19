@@ -52,11 +52,7 @@ class _Options extends StatelessWidget {
       Selector<OperationProvider, Map<Option, bool>>(
         selector: (_, provider) => provider.options,
         shouldRebuild: (_, _) => true,
-        builder: (_, options, _) => options.isNotEmpty
-            ? Options(options)
-            : const Padding(
-                padding: EdgeInsets.symmetric(vertical: 6),
-                child: Text('no options'),
-              ),
+        builder: (_, options, _) =>
+            options.isEmpty ? const SizedBox.shrink() : Options(options),
       );
 }

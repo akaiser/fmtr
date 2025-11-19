@@ -1,7 +1,6 @@
 enum Operation {
-  alphabetize._('Alphabetize'),
-  normalize._('Normalize'),
-  json._('Pretty JSON');
+  normalization._('Normalization'),
+  prettyJson._('Pretty JSON');
 
   const Operation._(this.label);
 
