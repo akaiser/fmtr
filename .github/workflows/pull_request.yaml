@@ -9,7 +9,7 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-flutter
       - run: flutter analyze
       - run: dart format -o none --set-exit-if-changed .
@@ -21,7 +21,7 @@ jobs:
     needs: analyze
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-flutter
       - run: dart run build_runner build --delete-conflicting-outputs
       - run: flutter test
