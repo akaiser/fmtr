@@ -26,6 +26,7 @@ class OperationProvider with ChangeNotifier {
     _updateOption(option, enabled);
 
     if (enabled) {
+      // List
       if (option.isLowercase) {
         _updateOption(Option.uppercase, false);
         _updateOption(Option.ignoreCase, false);
@@ -34,6 +35,12 @@ class OperationProvider with ChangeNotifier {
         _updateOption(Option.ignoreCase, false);
       } else if (option.isRemoveDuplicates) {
         _updateOption(Option.ignoreCase, false);
+      }
+      // JSON
+      else if (option.isPrettify) {
+        _updateOption(Option.minify, false);
+      } else if (option.isMinify) {
+        _updateOption(Option.prettify, false);
       }
     }
 

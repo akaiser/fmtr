@@ -5,10 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _keyPrefix = 'de.kaiserv.fmtr';
 const _operationKey = '$_keyPrefix.operation';
 
-const _operationsKeyPrefix = //
-        '$_keyPrefix.operations',
-    _operationNormalizationOptionsKey =
-        '$_operationsKeyPrefix.normalization.options';
+const _operationsKeyPrefix = '$_keyPrefix.operations',
+    _operationListOptionsKey = '$_operationsKeyPrefix.list.options',
+    _operationJsonOptionsKey = '$_operationsKeyPrefix.json.options';
 
 abstract final class Settings {
   static final _preferences = SharedPreferencesAsync();
@@ -22,7 +21,7 @@ abstract final class Settings {
   }
 
   static Future<Operation> get _initOperation {
-    const fallback = Operation.normalization;
+    const fallback = Operation.list;
     return _getOrSet(_operationKey, () => fallback.name)
         .then(
           (resolved) => Operation.values.firstWhere(
@@ -40,8 +39,8 @@ abstract final class Settings {
   ).then((_) => operation);
 
   static Future<Map<Operation, Map<Option, bool>>> get _initOptions async => {
-    Operation.normalization: await Settings._getOptions(
-      Operation.normalization,
+    Operation.list: await Settings._getOptions(
+      Operation.list,
       {
         Option.standardizeSpacing: true,
         Option.sortAlphabetically: true,
@@ -52,7 +51,13 @@ abstract final class Settings {
         Option.removeDuplicates: false,
       },
     ),
-    Operation.prettyJson: const {},
+    Operation.json: await Settings._getOptions(
+      Operation.json,
+      {
+        Option.prettify: true,
+        Option.minify: false,
+      },
+    ),
   };
 
   static Future<Map<Option, bool>> _getOptions(
@@ -61,11 +66,13 @@ abstract final class Settings {
   ) => _getOrSet(operation.key, () => _optionsToString(fallback))
       .then(_optionsFromString)
       .then((resolved) {
-        final hasExpectedLength = resolved.length == fallback.length;
-
-        return hasExpectedLength && !resolved.hasInvalidCaseOptions
-            ? resolved
-            : fallback;
+        final hasValidOptions =
+            resolved.length == fallback.length &&
+            switch (operation) {
+              Operation.list => resolved.hasValidListOptions,
+              Operation.json => resolved.hasValidJsonOptions,
+            };
+        return hasValidOptions ? resolved : fallback;
       })
       // in browser it is easy to mess up the stored value
       .then((options) => setOptions(operation, options));
@@ -113,7 +120,13 @@ abstract final class Settings {
 
 extension on Operation {
   String get key => switch (this) {
-    Operation.normalization => _operationNormalizationOptionsKey,
-    Operation.prettyJson => throw UnimplementedError(),
+    Operation.list => _operationListOptionsKey,
+    Operation.json => _operationJsonOptionsKey,
   };
+}
+
+extension on Map<Option, bool> {
+  bool get hasValidListOptions => hasEnabledLowercase != hasEnabledUppercase;
+
+  bool get hasValidJsonOptions => hasEnabledPrettify != hasEnabledMinify;
 }

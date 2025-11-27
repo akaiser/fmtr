@@ -50,7 +50,7 @@ class OperationHandler {
       final options = _operationProvider.options;
 
       switch (_operationProvider.operation) {
-        case Operation.normalization:
+        case Operation.list:
           final standardizeSpacing = options.hasEnabledStandardizeSpacing;
           final sortAlphabetically = options.hasEnabledSortAlphabetically;
           final removeDuplicates = options.hasEnabledRemoveDuplicates;
@@ -110,8 +110,12 @@ class OperationHandler {
           }
 
           output = result.joined;
-        case Operation.prettyJson:
-          output = _jsonEncoder.convert(jsonDecode(trimmedInput));
+        case Operation.json:
+          var result = _jsonEncoder.convert(jsonDecode(trimmedInput));
+          if (options.hasEnabledMinify) {
+            result = result.replaceAll(_whitespaceRegex, '');
+          }
+          output = result;
       }
 
       _setOutput(output);
