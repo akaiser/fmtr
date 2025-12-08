@@ -33,6 +33,11 @@ class _Operations extends StatelessWidget {
           (operation) => ButtonSegment<Operation>(
             value: operation,
             label: Text(operation.label, textAlign: TextAlign.center),
+            // TODO(Albert): Remove this
+            enabled: !const {
+              Operation.base64,
+              Operation.conversion,
+            }.contains(operation),
           ),
         )
         .unmodifiable,

@@ -7,7 +7,9 @@ const _operationKey = '$_keyPrefix.operation';
 
 const _operationsKeyPrefix = '$_keyPrefix.operations',
     _operationListOptionsKey = '$_operationsKeyPrefix.list.options',
-    _operationJsonOptionsKey = '$_operationsKeyPrefix.json.options';
+    _operationJsonOptionsKey = '$_operationsKeyPrefix.json.options',
+    _operationBase64OptionsKey = '$_operationsKeyPrefix.base64.options',
+    _operationConversionOptionsKey = '$_operationsKeyPrefix.conversion.options';
 
 abstract final class Settings {
   static final _preferences = SharedPreferencesAsync();
@@ -58,6 +60,8 @@ abstract final class Settings {
         Option.minify: false,
       },
     ),
+    Operation.base64: const {},
+    Operation.conversion: const {},
   };
 
   static Future<Map<Option, bool>> _getOptions(
@@ -71,6 +75,8 @@ abstract final class Settings {
             switch (operation) {
               Operation.list => resolved.hasValidListOptions,
               Operation.json => resolved.hasValidJsonOptions,
+              Operation.base64 => true,
+              Operation.conversion => true,
             };
         return hasValidOptions ? resolved : fallback;
       })
@@ -122,6 +128,8 @@ extension on Operation {
   String get key => switch (this) {
     Operation.list => _operationListOptionsKey,
     Operation.json => _operationJsonOptionsKey,
+    Operation.base64 => _operationBase64OptionsKey,
+    Operation.conversion => _operationConversionOptionsKey,
   };
 }
 
