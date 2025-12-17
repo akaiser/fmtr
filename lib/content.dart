@@ -3,6 +3,8 @@ import 'package:fmtr/_operation_handler.dart';
 import 'package:fmtr/components/input_text.dart';
 import 'package:fmtr/components/operations.dart';
 import 'package:fmtr/components/output_text.dart';
+import 'package:fmtr/handler/json_handler.dart';
+import 'package:fmtr/handler/list_handler.dart';
 import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/provider/operation_provider.dart';
@@ -22,6 +24,8 @@ class _ContentState extends State<Content> {
     inputProvider: context.inputProvider,
     operationProvider: context.operationProvider,
     outputProvider: context.outputProvider,
+    listHandler: const ListHandler(),
+    jsonHandler: const JsonHandler(),
   );
 
   @override

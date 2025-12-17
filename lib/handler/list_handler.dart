@@ -1,10 +1,11 @@
 import 'package:fmtr/_option.dart';
-import 'package:fmtr/handler/_shared.dart';
+import 'package:fmtr/handler/_handler.dart';
 import 'package:fmtr/utils/iterable_ext.dart';
 
-class ListHandler {
+class ListHandler implements Handler {
   const ListHandler();
 
+  @override
   String handle(String trimmedInput, Map<Option, bool> options) {
     final standardizeSpacing = options.hasEnabledStandardizeSpacing;
     final sortAlphabetically = options.hasEnabledSortAlphabetically;

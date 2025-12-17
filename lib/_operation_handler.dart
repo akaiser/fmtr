@@ -1,6 +1,5 @@
 import 'package:fmtr/_operation.dart';
-import 'package:fmtr/handler/json_handler.dart';
-import 'package:fmtr/handler/list_handler.dart';
+import 'package:fmtr/handler/_handler.dart';
 import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/provider/operation_provider.dart';
@@ -8,35 +7,33 @@ import 'package:fmtr/provider/output_provider.dart';
 
 class OperationHandler {
   OperationHandler({
-    required InputErrorProvider inputErrorProvider,
-    required InputProvider inputProvider,
-    required OperationProvider operationProvider,
-    required OutputProvider outputProvider,
-  }) : _inputErrorProvider = inputErrorProvider,
-       _inputProvider = inputProvider,
-       _operationProvider = operationProvider,
-       _outputProvider = outputProvider;
+    required this.inputErrorProvider,
+    required this.inputProvider,
+    required this.operationProvider,
+    required this.outputProvider,
+    required this.listHandler,
+    required this.jsonHandler,
+  });
 
-  final InputErrorProvider _inputErrorProvider;
-  final InputProvider _inputProvider;
-  final OperationProvider _operationProvider;
-  final OutputProvider _outputProvider;
+  final InputErrorProvider inputErrorProvider;
+  final InputProvider inputProvider;
+  final OperationProvider operationProvider;
+  final OutputProvider outputProvider;
 
-  static const _listHandler = ListHandler();
-  static const _jsonHandler = JsonHandler();
+  final Handler listHandler, jsonHandler;
 
   void init() {
-    _inputProvider.addListener(_onChange);
-    _operationProvider.addListener(_onChange);
+    inputProvider.addListener(_onChange);
+    operationProvider.addListener(_onChange);
   }
 
   void dispose() {
-    _inputProvider.removeListener(_onChange);
-    _operationProvider.removeListener(_onChange);
+    inputProvider.removeListener(_onChange);
+    operationProvider.removeListener(_onChange);
   }
 
   void _onChange() {
-    final trimmedInput = _inputProvider.input.trim();
+    final trimmedInput = inputProvider.input.trim();
 
     if (trimmedInput.isEmpty) {
       _setOutput('');
@@ -44,23 +41,23 @@ class OperationHandler {
     }
 
     try {
-      final options = _operationProvider.options;
+      final options = operationProvider.options;
 
-      final output = switch (_operationProvider.operation) {
-        Operation.list => _listHandler.handle(trimmedInput, options),
-        Operation.json => _jsonHandler.handle(trimmedInput, options),
+      final output = switch (operationProvider.operation) {
+        Operation.list => listHandler.handle(trimmedInput, options),
+        Operation.json => jsonHandler.handle(trimmedInput, options),
         Operation.base64 => 'TODO',
         Operation.conversion => 'TODO',
       };
 
       _setOutput(output);
     } on Exception catch (exc) {
-      _inputErrorProvider.error = '$exc';
+      inputErrorProvider.error = '$exc';
     }
   }
 
   void _setOutput(String output) {
-    _inputErrorProvider.error = null;
-    _outputProvider.output = output;
+    inputErrorProvider.error = null;
+    outputProvider.output = output;
   }
 }
