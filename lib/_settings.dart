@@ -96,17 +96,17 @@ abstract final class Settings {
   // ignore: switch_on_type
   static Future<T?> _get<T>(String key) => switch (T) {
     const (bool) => _preferences.getBool(key),
-    const (String) => _preferences.getString(key),
     const (int) => _preferences.getInt(key),
     const (double) => _preferences.getDouble(key),
+    const (String) => _preferences.getString(key),
     _ => throw UnimplementedError('$T is not supported'),
   }.then((value) => value as T?);
 
   static Future<T> _set<T>(String key, T value) => switch (value) {
     bool() => _preferences.setBool(key, value),
-    String() => _preferences.setString(key, value),
     int() => _preferences.setInt(key, value),
     double() => _preferences.setDouble(key, value),
+    String() => _preferences.setString(key, value),
     _ => throw UnimplementedError('$T is not supported'),
   }.then((_) => value);
 
