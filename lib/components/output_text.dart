@@ -16,7 +16,7 @@ class OutputText extends StatelessWidget {
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         labelText: 'Out',
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        floatingLabelBehavior: .always,
         counter: TextFooter(output),
       ),
     ),

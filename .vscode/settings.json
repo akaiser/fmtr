@@ -2,5 +2,6 @@
     "java.autobuild.enabled": false,
     "java.import.gradle.enabled": false,
     "java.gradle.buildServer.enabled": "off",
-    "dart.flutterWidgetPreview": "disabled"
+    "dart.flutterWidgetPreview": "disabled",
+    "telemetry.feedback.enabled": false
 }

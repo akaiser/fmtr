@@ -41,27 +41,27 @@ abstract final class Settings {
   ).then((_) => operation);
 
   static Future<Map<Operation, Map<Option, bool>>> get _initOptions async => {
-    Operation.list: await Settings._getOptions(
-      Operation.list,
+    .list: await Settings._getOptions(
+      .list,
       {
-        Option.standardizeSpacing: true,
-        Option.sortAlphabetically: true,
-        Option.reverseOrder: false,
-        Option.ignoreCase: false,
-        Option.lowercase: false,
-        Option.uppercase: false,
-        Option.removeDuplicates: false,
+        .standardizeSpacing: true,
+        .sortAlphabetically: true,
+        .reverseOrder: false,
+        .ignoreCase: false,
+        .lowercase: false,
+        .uppercase: false,
+        .removeDuplicates: false,
       },
     ),
-    Operation.json: await Settings._getOptions(
-      Operation.json,
+    .json: await Settings._getOptions(
+      .json,
       {
-        Option.prettify: true,
-        Option.minify: false,
+        .prettify: true,
+        .minify: false,
       },
     ),
-    Operation.base64: const {},
-    Operation.conversion: const {},
+    .base64: const {},
+    .conversion: const {},
   };
 
   static Future<Map<Option, bool>> _getOptions(
@@ -73,10 +73,10 @@ abstract final class Settings {
         final hasValidOptions =
             resolved.length == fallback.length &&
             switch (operation) {
-              Operation.list => resolved.hasValidListOptions,
-              Operation.json => resolved.hasValidJsonOptions,
-              Operation.base64 => true,
-              Operation.conversion => true,
+              .list => resolved.hasValidListOptions,
+              .json => resolved.hasValidJsonOptions,
+              .base64 => true,
+              .conversion => true,
             };
         return hasValidOptions ? resolved : fallback;
       })
@@ -126,10 +126,10 @@ abstract final class Settings {
 
 extension on Operation {
   String get key => switch (this) {
-    Operation.list => _operationListOptionsKey,
-    Operation.json => _operationJsonOptionsKey,
-    Operation.base64 => _operationBase64OptionsKey,
-    Operation.conversion => _operationConversionOptionsKey,
+    .list => _operationListOptionsKey,
+    .json => _operationJsonOptionsKey,
+    .base64 => _operationBase64OptionsKey,
+    .conversion => _operationConversionOptionsKey,
   };
 }
 

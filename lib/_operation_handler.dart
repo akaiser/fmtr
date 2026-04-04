@@ -1,4 +1,3 @@
-import 'package:fmtr/_operation.dart';
 import 'package:fmtr/handler/_handler.dart';
 import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
@@ -44,10 +43,10 @@ class OperationHandler {
       final options = operationProvider.options;
 
       final output = switch (operationProvider.operation) {
-        Operation.list => listHandler.handle(trimmedInput, options),
-        Operation.json => jsonHandler.handle(trimmedInput, options),
-        Operation.base64 => 'TODO',
-        Operation.conversion => 'TODO',
+        .list => listHandler.handle(trimmedInput, options),
+        .json => jsonHandler.handle(trimmedInput, options),
+        .base64 => 'TODO',
+        .conversion => 'TODO',
       };
 
       _setOutput(output);

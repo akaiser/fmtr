@@ -28,19 +28,19 @@ class OperationProvider with ChangeNotifier {
     if (enabled) {
       // List
       if (option.isLowercase) {
-        _updateOption(Option.uppercase, false);
-        _updateOption(Option.ignoreCase, false);
+        _updateOption(.uppercase, false);
+        _updateOption(.ignoreCase, false);
       } else if (option.isUppercase) {
-        _updateOption(Option.lowercase, false);
-        _updateOption(Option.ignoreCase, false);
+        _updateOption(.lowercase, false);
+        _updateOption(.ignoreCase, false);
       } else if (option.isRemoveDuplicates) {
-        _updateOption(Option.ignoreCase, false);
+        _updateOption(.ignoreCase, false);
       }
       // JSON
       else if (option.isPrettify) {
-        _updateOption(Option.minify, false);
+        _updateOption(.minify, false);
       } else if (option.isMinify) {
-        _updateOption(Option.prettify, false);
+        _updateOption(.prettify, false);
       }
     }
 

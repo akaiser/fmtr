@@ -19,7 +19,7 @@ class InputText extends StatelessWidget {
         error: error != null ? _Error(error) : null,
         border: const OutlineInputBorder(),
         labelText: 'In',
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        floatingLabelBehavior: .always,
         counter: counter,
       ),
     ),

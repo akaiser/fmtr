@@ -20,42 +20,42 @@ enum Option {
 
 extension OptionExt on Option {
   // List
-  bool get isIgnoreCase => this == Option.ignoreCase;
+  bool get isIgnoreCase => this == .ignoreCase;
 
-  bool get isLowercase => this == Option.lowercase;
+  bool get isLowercase => this == .lowercase;
 
-  bool get isUppercase => this == Option.uppercase;
+  bool get isUppercase => this == .uppercase;
 
-  bool get isRemoveDuplicates => this == Option.removeDuplicates;
+  bool get isRemoveDuplicates => this == .removeDuplicates;
 
   // JSON
-  bool get isPrettify => this == Option.prettify;
+  bool get isPrettify => this == .prettify;
 
-  bool get isMinify => this == Option.minify;
+  bool get isMinify => this == .minify;
 }
 
 extension OptionsMapExt on Map<Option, bool> {
   bool _isTrue(Option option) => this[option] ?? false;
 
   // List
-  bool get hasEnabledStandardizeSpacing => _isTrue(Option.standardizeSpacing);
+  bool get hasEnabledStandardizeSpacing => _isTrue(.standardizeSpacing);
 
-  bool get hasEnabledSortAlphabetically => _isTrue(Option.sortAlphabetically);
+  bool get hasEnabledSortAlphabetically => _isTrue(.sortAlphabetically);
 
-  bool get hasEnabledReverseOrder => _isTrue(Option.reverseOrder);
+  bool get hasEnabledReverseOrder => _isTrue(.reverseOrder);
 
-  bool get hasEnabledIgnoreCase => _isTrue(Option.ignoreCase);
+  bool get hasEnabledIgnoreCase => _isTrue(.ignoreCase);
 
-  bool get hasEnabledLowercase => _isTrue(Option.lowercase);
+  bool get hasEnabledLowercase => _isTrue(.lowercase);
 
-  bool get hasEnabledUppercase => _isTrue(Option.uppercase);
+  bool get hasEnabledUppercase => _isTrue(.uppercase);
 
-  bool get hasEnabledRemoveDuplicates => _isTrue(Option.removeDuplicates);
+  bool get hasEnabledRemoveDuplicates => _isTrue(.removeDuplicates);
 
   // JSON
-  bool get hasEnabledPrettify => _isTrue(Option.prettify);
+  bool get hasEnabledPrettify => _isTrue(.prettify);
 
-  bool get hasEnabledMinify => _isTrue(Option.minify);
+  bool get hasEnabledMinify => _isTrue(.minify);
 
   // misc
 
