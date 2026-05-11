@@ -7,8 +7,10 @@ class InputErrorProvider with ChangeNotifier {
   String? get error => _error;
 
   set error(String? error) {
-    _error = error;
-    notifyListeners();
+    if (_error != error) {
+      _error = error;
+      notifyListeners();
+    }
   }
 }
 

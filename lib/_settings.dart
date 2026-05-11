@@ -115,8 +115,7 @@ abstract final class Settings {
   static Map<Option, bool> _optionsFromString(String input) => {
     for (final pair in input.split(',').map((e) => e.split(':')))
       if (pair.length == 2)
-        for (final option in Option.values)
-          if (option.name == pair[0].trim()) option: pair[1].trim() == 'true',
+        ?optionsByName[pair[0].trim()]: pair[1].trim() == 'true',
   };
 
   static String _optionsToString(Map<Option, bool> options) => options.entries
@@ -134,7 +133,7 @@ extension on Operation {
 }
 
 extension on Map<Option, bool> {
-  bool get hasValidListOptions => hasEnabledLowercase != hasEnabledUppercase;
+  bool get hasValidListOptions => !(hasEnabledLowercase && hasEnabledUppercase);
 
   bool get hasValidJsonOptions => hasEnabledPrettify != hasEnabledMinify;
 }

@@ -14,7 +14,7 @@ class Operations extends StatelessWidget {
     selector: (_, provider) => provider.operation,
     builder: (_, operation, _) => Column(
       spacing: 12,
-      children: [_Operations(operation), _Options(operation)],
+      children: [_Operations(operation), const _Options()],
     ),
   );
 }
@@ -48,9 +48,7 @@ class _Operations extends StatelessWidget {
 }
 
 class _Options extends StatelessWidget {
-  const _Options(this.operation);
-
-  final Operation operation;
+  const _Options();
 
   @override
   Widget build(BuildContext context) =>

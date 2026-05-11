@@ -7,8 +7,10 @@ class InputProvider with ChangeNotifier {
   String get input => _input;
 
   set input(String input) {
-    _input = input;
-    notifyListeners();
+    if (_input != input) {
+      _input = input;
+      notifyListeners();
+    }
   }
 }
 

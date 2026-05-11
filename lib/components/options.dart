@@ -19,7 +19,7 @@ class Options extends StatelessWidget {
     children: options.entries
         .map(
           (entry) => _Checkbox(
-            key: UniqueKey(),
+            key: ValueKey(entry.key),
             entry.key.label,
             checked: entry.value,
             enabled: !entry.key.isIgnoreCase || options.ignoreCaseMaybeEnabled,

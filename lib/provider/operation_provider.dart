@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:fmtr/_operation.dart';
 import 'package:fmtr/_option.dart';
 import 'package:fmtr/_settings.dart';
-import 'package:fmtr/utils/nullable_ext.dart';
 import 'package:provider/provider.dart';
 
 class OperationProvider with ChangeNotifier {
@@ -17,39 +16,52 @@ class OperationProvider with ChangeNotifier {
   Map<Option, bool> get options => _options[_operation] ?? const {};
 
   set operation(Operation operation) {
-    _operation = operation;
-    unawaited(Settings.setOperation(_operation));
-    notifyListeners();
+    if (_operation != operation) {
+      _operation = operation;
+      unawaited(Settings.setOperation(_operation));
+      notifyListeners();
+    }
   }
 
   void updateOption(Option option, {required bool enabled}) {
-    _updateOption(option, enabled);
+    var hasChanges = _updateOption(option, enabled);
 
     if (enabled) {
       // List
       if (option.isLowercase) {
-        _updateOption(.uppercase, false);
-        _updateOption(.ignoreCase, false);
+        hasChanges = _updateOption(.uppercase, false) || hasChanges;
+        hasChanges = _updateOption(.ignoreCase, false) || hasChanges;
       } else if (option.isUppercase) {
-        _updateOption(.lowercase, false);
-        _updateOption(.ignoreCase, false);
+        hasChanges = _updateOption(.lowercase, false) || hasChanges;
+        hasChanges = _updateOption(.ignoreCase, false) || hasChanges;
       } else if (option.isRemoveDuplicates) {
-        _updateOption(.ignoreCase, false);
+        hasChanges = _updateOption(.ignoreCase, false) || hasChanges;
       }
       // JSON
       else if (option.isPrettify) {
-        _updateOption(.minify, false);
+        hasChanges = _updateOption(.minify, false) || hasChanges;
       } else if (option.isMinify) {
-        _updateOption(.prettify, false);
+        hasChanges = _updateOption(.prettify, false) || hasChanges;
       }
     }
 
-    unawaited(Settings.setOptions(_operation, options));
-    notifyListeners();
+    if (hasChanges) {
+      unawaited(Settings.setOptions(_operation, options));
+      notifyListeners();
+    }
   }
 
-  void _updateOption(Option option, bool enabled) {
-    options.let((options) => options[option] = enabled);
+  bool _updateOption(Option option, bool enabled) {
+    final operationOptions = _options[_operation];
+    if (operationOptions == null || !operationOptions.containsKey(option)) {
+      return false;
+    }
+    if (operationOptions[option] == enabled) {
+      return false;
+    }
+
+    operationOptions[option] = enabled;
+    return true;
   }
 }
 

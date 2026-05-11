@@ -10,10 +10,9 @@ class JsonHandler implements Handler {
 
   @override
   String handle(String trimmedInput, Map<Option, bool> options) {
-    var result = _jsonEncoder.convert(jsonDecode(trimmedInput));
-    if (options.hasEnabledMinify) {
-      result = result.replaceAll(whitespaceRegex, '');
-    }
-    return result;
+    final decoded = jsonDecode(trimmedInput);
+    return options.hasEnabledMinify
+        ? jsonEncode(decoded)
+        : _jsonEncoder.convert(decoded);
   }
 }

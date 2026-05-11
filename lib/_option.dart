@@ -1,3 +1,7 @@
+final Map<String, Option> optionsByName = {
+  for (final option in Option.values) option.name: option,
+};
+
 enum Option {
   // List
   standardizeSpacing._('Standardize spacing'),

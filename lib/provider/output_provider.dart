@@ -7,8 +7,10 @@ class OutputProvider with ChangeNotifier {
   String get output => _output;
 
   set output(String output) {
-    _output = output;
-    notifyListeners();
+    if (_output != output) {
+      _output = output;
+      notifyListeners();
+    }
   }
 }
 

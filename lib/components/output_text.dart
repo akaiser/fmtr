@@ -4,21 +4,21 @@ import 'package:fmtr/provider/output_provider.dart';
 import 'package:provider/provider.dart';
 
 class OutputText extends StatelessWidget {
-  const OutputText();
+  const OutputText({super.key});
 
   @override
   Widget build(BuildContext context) => Selector<OutputProvider, String>(
     selector: (_, provider) => provider.output,
-    builder: (context, output, child) => TextField(
-      readOnly: true,
-      maxLines: null,
-      controller: TextEditingController(text: output),
+    builder: (_, output, _) => InputDecorator(
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         labelText: 'Out',
         floatingLabelBehavior: .always,
         counter: TextFooter(output),
       ),
+      child: output.isEmpty
+          ? const SizedBox(height: 20)
+          : SelectableText(output),
     ),
   );
 }
