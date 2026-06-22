@@ -99,7 +99,8 @@ void main() {
     });
 
     test(
-      'ignoreCase sorting compares lowercase values but preserves original case',
+      'ignoreCase sorting compares lowercase values '
+      'but preserves original case',
       () {
         const input = 'Zoo\napple\nBanana';
 
