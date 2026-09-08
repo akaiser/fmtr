@@ -3,9 +3,7 @@ import 'package:fmtr/components/_text_footer.dart';
 import 'package:fmtr/provider/output_provider.dart';
 import 'package:provider/provider.dart';
 
-class OutputText extends StatelessWidget {
-  const OutputText({super.key});
-
+class const OutputText({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Selector<OutputProvider, String>(
     selector: (_, provider) => provider.output,

@@ -11,9 +11,7 @@ import 'package:fmtr/provider/operation_provider.dart';
 import 'package:fmtr/provider/output_provider.dart';
 import 'package:fmtr/utils/build_context_ext.dart';
 
-class Content extends StatefulWidget {
-  const Content();
-
+class const Content({super.key}) extends StatefulWidget {
   @override
   State<Content> createState() => _ContentState();
 }

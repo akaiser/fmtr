@@ -2,24 +2,19 @@ final Map<String, Option> optionsByName = {
   for (final option in Option.values) option.name: option,
 };
 
-enum Option {
+enum Option(final String label) {
   // List
-  standardizeSpacing._('Standardize spacing'),
-  sortAlphabetically._('Sort alphabetically'),
-  reverseOrder._('Reverse order'),
-  ignoreCase._('Ignore case'),
-  lowercase._('Lowercase'),
-  uppercase._('Uppercase'),
-  removeDuplicates._('Remove duplicates'),
+  standardizeSpacing('Standardize spacing'),
+  sortAlphabetically('Sort alphabetically'),
+  reverseOrder('Reverse order'),
+  ignoreCase('Ignore case'),
+  lowercase('Lowercase'),
+  uppercase('Uppercase'),
+  removeDuplicates('Remove duplicates'),
 
   // JSON
-  prettify._('Prettify'),
-  minify._('Minify'),
-  ;
-
-  const Option._(this.label);
-
-  final String label;
+  prettify('Prettify'),
+  minify('Minify'),
 }
 
 extension OptionExt on Option {

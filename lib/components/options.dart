@@ -8,21 +8,18 @@ final WidgetStateProperty<Color> _overlayColor = WidgetStateProperty.all(
   Colors.transparent,
 );
 
-class Options extends StatelessWidget {
-  const Options(this.options, {super.key});
-
-  final Map<Option, bool> options;
-
+class const Options(final Map<Option, bool> _options, {super.key})
+    extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Wrap(
     spacing: 12,
-    children: options.entries
+    children: _options.entries
         .map(
           (entry) => _Checkbox(
             key: ValueKey(entry.key),
             entry.key.label,
             checked: entry.value,
-            enabled: !entry.key.isIgnoreCase || options.ignoreCaseMaybeEnabled,
+            enabled: !entry.key.isIgnoreCase || _options.ignoreCaseMaybeEnabled,
             onChanged: () => context.operationProvider.updateOption(
               entry.key,
               enabled: !entry.value,
@@ -33,36 +30,29 @@ class Options extends StatelessWidget {
   );
 }
 
-class _Checkbox extends StatelessWidget {
-  const _Checkbox(
-    this.label, {
-    required this.checked,
-    required this.enabled,
-    required this.onChanged,
-    super.key,
-  });
-
-  final String label;
-  final bool checked;
-  final bool enabled;
-  final VoidCallback onChanged;
-
+class const _Checkbox(
+  final String _label, {
+  required final bool _checked,
+  required final bool _enabled,
+  required final VoidCallback _onChanged,
+  super.key,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
     overlayColor: _overlayColor,
-    onTap: enabled ? onChanged : null,
+    onTap: _enabled ? _onChanged : null,
     child: Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: [
         Checkbox(
-          visualDensity: VisualDensity.compact,
+          visualDensity: .compact,
           overlayColor: _overlayColor,
-          value: checked,
-          onChanged: enabled ? (_) => onChanged() : null,
+          value: _checked,
+          onChanged: _enabled ? (_) => _onChanged() : null,
         ),
         Text(
-          label,
-          style: enabled
+          _label,
+          style: _enabled
               ? null
               : context.dts.copyWith(color: context.td.disabledColor),
         ),

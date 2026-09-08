@@ -26,10 +26,7 @@ Future<void> main() async {
         darkTheme: ThemeData.dark(),
         title: 'Fmtr v$packageVersion',
         home: const Scaffold(
-          body: SingleChildScrollView(
-            padding: EdgeInsets.all(16),
-            child: Content(),
-          ),
+          body: SingleChildScrollView(padding: .all(16), child: Content()),
         ),
       ),
     ),

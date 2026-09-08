@@ -1,4 +1,3 @@
-import 'package:fmtr/_option.dart';
 import 'package:fmtr/handler/list_handler.dart';
 import 'package:test/test.dart';
 
@@ -17,9 +16,7 @@ void main() {
     test('standardize spacing collapses repeated whitespace inside a line', () {
       const input = 'alpha   beta\t gamma\n  delta\t\t epsilon  ';
 
-      final output = handler.handle(input, const {
-        Option.standardizeSpacing: true,
-      });
+      final output = handler.handle(input, const {.standardizeSpacing: true});
 
       expect(output, 'alpha beta gamma\ndelta epsilon');
     });
@@ -29,9 +26,7 @@ void main() {
     test('lowercase transforms every line to lowercase', () {
       const input = 'AbC\nxYz';
 
-      final output = handler.handle(input, const {
-        Option.lowercase: true,
-      });
+      final output = handler.handle(input, const {.lowercase: true});
 
       expect(output, 'abc\nxyz');
     });
@@ -39,9 +34,7 @@ void main() {
     test('uppercase transforms every line to uppercase', () {
       const input = 'AbC\nxYz';
 
-      final output = handler.handle(input, const {
-        Option.uppercase: true,
-      });
+      final output = handler.handle(input, const {.uppercase: true});
 
       expect(output, 'ABC\nXYZ');
     });
@@ -52,8 +45,8 @@ void main() {
         const input = 'AbC';
 
         final output = handler.handle(input, const {
-          Option.lowercase: true,
-          Option.uppercase: true,
+          .lowercase: true,
+          .uppercase: true,
         });
 
         expect(output, 'abc');
@@ -67,9 +60,7 @@ void main() {
       () {
         const input = 'A\na\nA\nb\nb';
 
-        final output = handler.handle(input, const {
-          Option.removeDuplicates: true,
-        });
+        final output = handler.handle(input, const {.removeDuplicates: true});
 
         expect(output, 'A\na\nb');
       },
@@ -79,8 +70,8 @@ void main() {
       const input = 'A\na\nB\nb\na';
 
       final output = handler.handle(input, const {
-        Option.removeDuplicates: true,
-        Option.ignoreCase: true,
+        .removeDuplicates: true,
+        .ignoreCase: true,
       });
 
       expect(output, 'A\nB');
@@ -91,34 +82,27 @@ void main() {
     test('sort alphabetically uses case-sensitive order by default', () {
       const input = 'banana\nApple\ncherry';
 
-      final output = handler.handle(input, const {
-        Option.sortAlphabetically: true,
-      });
+      final output = handler.handle(input, const {.sortAlphabetically: true});
 
       expect(output, 'Apple\nbanana\ncherry');
     });
 
-    test(
-      'ignoreCase sorting compares lowercase values '
-      'but preserves original case',
-      () {
-        const input = 'Zoo\napple\nBanana';
+    test('ignoreCase sorting compares lowercase values '
+        'but preserves original case', () {
+      const input = 'Zoo\napple\nBanana';
 
-        final output = handler.handle(input, const {
-          Option.sortAlphabetically: true,
-          Option.ignoreCase: true,
-        });
+      final output = handler.handle(input, const {
+        .sortAlphabetically: true,
+        .ignoreCase: true,
+      });
 
-        expect(output, 'apple\nBanana\nZoo');
-      },
-    );
+      expect(output, 'apple\nBanana\nZoo');
+    });
 
     test('reverse order reverses the final list', () {
       const input = 'first\nsecond\nthird';
 
-      final output = handler.handle(input, const {
-        Option.reverseOrder: true,
-      });
+      final output = handler.handle(input, const {.reverseOrder: true});
 
       expect(output, 'third\nsecond\nfirst');
     });
@@ -128,11 +112,11 @@ void main() {
     const input = '  C item  \n a   item\nB\titem\nb item\nA item  ';
 
     final output = handler.handle(input, const {
-      Option.standardizeSpacing: true,
-      Option.lowercase: true,
-      Option.removeDuplicates: true,
-      Option.sortAlphabetically: true,
-      Option.reverseOrder: true,
+      .standardizeSpacing: true,
+      .lowercase: true,
+      .removeDuplicates: true,
+      .sortAlphabetically: true,
+      .reverseOrder: true,
     });
 
     expect(output, 'c item\nb item\na item');

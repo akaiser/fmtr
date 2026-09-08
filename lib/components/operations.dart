@@ -6,9 +6,7 @@ import 'package:fmtr/provider/operation_provider.dart';
 import 'package:fmtr/utils/iterable_ext.dart';
 import 'package:provider/provider.dart';
 
-class Operations extends StatelessWidget {
-  const Operations();
-
+class const Operations({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Selector<OperationProvider, Operation>(
     selector: (_, provider) => provider.operation,
@@ -19,24 +17,20 @@ class Operations extends StatelessWidget {
   );
 }
 
-class _Operations extends StatelessWidget {
-  const _Operations(this.operation);
-
-  final Operation operation;
-
+class const _Operations(final Operation _operation) extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SegmentedButton<Operation>(
-    selected: {operation},
+    selected: {_operation},
     showSelectedIcon: false,
     segments: Operation.values
         .map(
           (operation) => ButtonSegment<Operation>(
             value: operation,
-            label: Text(operation.label, textAlign: TextAlign.center),
+            label: Text(operation.label, textAlign: .center),
             // TODO(Albert): Remove this
-            enabled: !const {
-              Operation.base64,
-              Operation.conversion,
+            enabled: !const <Operation>{
+              .base64,
+              .conversion,
             }.contains(operation),
           ),
         )
@@ -47,9 +41,7 @@ class _Operations extends StatelessWidget {
   );
 }
 
-class _Options extends StatelessWidget {
-  const _Options();
-
+class const _Options() extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Selector<OperationProvider, Map<Option, bool>>(
