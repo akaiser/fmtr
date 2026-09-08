@@ -5,9 +5,7 @@ import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/utils/build_context_ext.dart';
 import 'package:provider/provider.dart';
 
-class InputText extends StatelessWidget {
-  const InputText();
-
+class const InputText({super.key}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Selector<InputErrorProvider, String?>(
     selector: (_, provider) => provider.error,
@@ -31,14 +29,8 @@ class InputText extends StatelessWidget {
   );
 }
 
-class _Error extends StatelessWidget {
-  const _Error(this.text);
-
-  final String text;
-
+class const _Error(final String _text) extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Text(
-    text,
-    style: TextStyle(color: context.cs.error),
-  );
+  Widget build(BuildContext context) =>
+      Text(_text, style: TextStyle(color: context.cs.error));
 }

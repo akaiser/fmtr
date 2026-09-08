@@ -2,9 +2,7 @@ import 'package:fmtr/_option.dart';
 import 'package:fmtr/handler/_handler.dart';
 import 'package:fmtr/utils/iterable_ext.dart';
 
-class ListHandler implements Handler {
-  const ListHandler();
-
+class const ListHandler() implements Handler {
   @override
   String handle(String trimmedInput, Map<Option, bool> options) {
     final standardizeSpacing = options.hasEnabledStandardizeSpacing;
@@ -26,29 +24,29 @@ class ListHandler implements Handler {
     final seen = removeDuplicates ? <String>{} : null;
 
     for (final line in trimmedInput.lines) {
-      var _line = line;
+      var newLine = line;
 
       // 1. Standardize spacing
       if (standardizeSpacing) {
-        _line = _line.replaceAll(whitespaceRegex, ' ');
+        newLine = line.replaceAll(whitespaceRegex, ' ');
       }
 
       // 2. Case normalization
       if (lowercase) {
-        _line = _line.toLowerCase();
+        newLine = newLine.toLowerCase();
       } else if (uppercase) {
-        _line = _line.toUpperCase();
+        newLine = newLine.toUpperCase();
       }
 
       // 3. Remove duplicates
       if (removeDuplicates) {
-        final key = ignoreCase ? _line.toLowerCase() : _line;
+        final key = ignoreCase ? newLine.toLowerCase() : newLine;
         if (seen != null && !seen.add(key)) {
           continue;
         }
       }
 
-      result.add(_line);
+      result.add(newLine);
     }
 
     // 4. Sort alphabetically

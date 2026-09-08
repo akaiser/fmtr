@@ -1,4 +1,3 @@
-import 'package:fmtr/_option.dart';
 import 'package:fmtr/handler/json_handler.dart';
 import 'package:test/test.dart';
 
@@ -9,8 +8,8 @@ void main() {
     const input = '{"a":1,"b":"a b"}';
 
     final output = handler.handle(input, const {
-      Option.prettify: true,
-      Option.minify: false,
+      .prettify: true,
+      .minify: false,
     });
 
     expect(output, '{\n  "a": 1,\n  "b": "a b"\n}');
@@ -20,8 +19,8 @@ void main() {
     const input = '{"a": 1, "b": "a b", "c": ["x y"]}';
 
     final output = handler.handle(input, const {
-      Option.prettify: false,
-      Option.minify: true,
+      .prettify: false,
+      .minify: true,
     });
 
     expect(output, '{"a":1,"b":"a b","c":["x y"]}');
@@ -30,7 +29,7 @@ void main() {
   test('defaults to prettify when minify is not enabled', () {
     const input = '{"b":2,"a":1}';
 
-    final output = handler.handle(input, const {Option.prettify: true});
+    final output = handler.handle(input, const {.prettify: true});
 
     expect(output, '{\n  "b": 2,\n  "a": 1\n}');
   });
@@ -39,8 +38,8 @@ void main() {
     const input = '{"a": 1, "b": 2}';
 
     final output = handler.handle(input, const {
-      Option.prettify: true,
-      Option.minify: true,
+      .prettify: true,
+      .minify: true,
     });
 
     expect(output, '{"a":1,"b":2}');
@@ -50,8 +49,8 @@ void main() {
     const input = '"a b"';
 
     final output = handler.handle(input, const {
-      Option.prettify: true,
-      Option.minify: false,
+      .prettify: true,
+      .minify: false,
     });
 
     expect(output, '"a b"');
@@ -61,7 +60,7 @@ void main() {
     const input = '{"a": 1';
 
     expect(
-      () => handler.handle(input, const {Option.prettify: true}),
+      () => handler.handle(input, const {.prettify: true}),
       throwsFormatException,
     );
   });

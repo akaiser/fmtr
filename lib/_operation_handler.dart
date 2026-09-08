@@ -4,35 +4,26 @@ import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/provider/operation_provider.dart';
 import 'package:fmtr/provider/output_provider.dart';
 
-class OperationHandler {
-  OperationHandler({
-    required this.inputErrorProvider,
-    required this.inputProvider,
-    required this.operationProvider,
-    required this.outputProvider,
-    required this.listHandler,
-    required this.jsonHandler,
-  });
-
-  final InputErrorProvider inputErrorProvider;
-  final InputProvider inputProvider;
-  final OperationProvider operationProvider;
-  final OutputProvider outputProvider;
-
-  final Handler listHandler, jsonHandler;
-
+class OperationHandler({
+  required final InputErrorProvider _inputErrorProvider,
+  required final InputProvider _inputProvider,
+  required final OperationProvider _operationProvider,
+  required final OutputProvider _outputProvider,
+  required final Handler _listHandler,
+  required final Handler _jsonHandler,
+}) {
   void init() {
-    inputProvider.addListener(_onChange);
-    operationProvider.addListener(_onChange);
+    _inputProvider.addListener(_onChange);
+    _operationProvider.addListener(_onChange);
   }
 
   void dispose() {
-    inputProvider.removeListener(_onChange);
-    operationProvider.removeListener(_onChange);
+    _inputProvider.removeListener(_onChange);
+    _operationProvider.removeListener(_onChange);
   }
 
   void _onChange() {
-    final trimmedInput = inputProvider.input.trim();
+    final trimmedInput = _inputProvider.input.trim();
 
     if (trimmedInput.isEmpty) {
       _setOutput('');
@@ -40,23 +31,23 @@ class OperationHandler {
     }
 
     try {
-      final options = operationProvider.options;
+      final options = _operationProvider.options;
 
-      final output = switch (operationProvider.operation) {
-        .list => listHandler.handle(trimmedInput, options),
-        .json => jsonHandler.handle(trimmedInput, options),
+      final output = switch (_operationProvider.operation) {
+        .list => _listHandler.handle(trimmedInput, options),
+        .json => _jsonHandler.handle(trimmedInput, options),
         .base64 => 'TODO',
         .conversion => 'TODO',
       };
 
       _setOutput(output);
     } on Exception catch (exc) {
-      inputErrorProvider.error = '$exc';
+      _inputErrorProvider.error = '$exc';
     }
   }
 
   void _setOutput(String output) {
-    inputErrorProvider.error = null;
-    outputProvider.output = output;
+    _inputErrorProvider.error = null;
+    _outputProvider.output = output;
   }
 }

@@ -5,9 +5,7 @@ import 'package:fmtr/handler/_handler.dart';
 
 const _jsonEncoder = JsonEncoder.withIndent('  ');
 
-class JsonHandler implements Handler {
-  const JsonHandler();
-
+class const JsonHandler() implements Handler {
   @override
   String handle(String trimmedInput, Map<Option, bool> options) {
     final decoded = jsonDecode(trimmedInput);
