@@ -41,7 +41,7 @@ abstract final class Settings {
   ).then((_) => operation);
 
   static Future<Map<Operation, Map<Option, bool>>> get _initOptions async => {
-    .list: await Settings._getOptions(.list, {
+    .list: await Settings._getOptions(.list, const {
       .standardizeSpacing: true,
       .sortAlphabetically: true,
       .reverseOrder: false,
@@ -50,7 +50,10 @@ abstract final class Settings {
       .uppercase: false,
       .removeDuplicates: false,
     }),
-    .json: await Settings._getOptions(.json, {.prettify: true, .minify: false}),
+    .json: await Settings._getOptions(.json, const {
+      .prettify: true,
+      .minify: false,
+    }),
     .base64: const {},
     .conversion: const {},
   };
