@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:fmtr/components/_text_footer.dart';
 import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/utils/build_context_ext.dart';
+import 'package:fmtr/utils/nullable_ext.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 class const InputText({super.key}) extends StatelessWidget {
@@ -14,7 +15,7 @@ class const InputText({super.key}) extends StatelessWidget {
       maxLines: null,
       onChanged: (value) => context.inputProvider.input = value,
       decoration: InputDecoration(
-        error: error != null ? _Error(error) : null,
+        error: error.let(_Error.new),
         border: const OutlineInputBorder(),
         labelText: 'In',
         floatingLabelBehavior: .always,

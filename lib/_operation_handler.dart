@@ -4,7 +4,7 @@ import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/provider/operation_provider.dart';
 import 'package:fmtr/provider/output_provider.dart';
 
-class OperationHandler({
+class const OperationHandler({
   required final InputErrorProvider _inputErrorProvider,
   required final InputProvider _inputProvider,
   required final OperationProvider _operationProvider,

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fmtr/utils/build_context_ext.dart';
+import 'package:material_ui/material_ui.dart';
 
 class const TextFooter(final String _text, {super.key})
     extends StatelessWidget {

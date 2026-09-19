@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:fmtr/_settings.dart';
 import 'package:fmtr/_version.dart';
 import 'package:fmtr/content.dart';
@@ -6,6 +5,7 @@ import 'package:fmtr/provider/input_error_provider.dart';
 import 'package:fmtr/provider/input_provider.dart';
 import 'package:fmtr/provider/operation_provider.dart';
 import 'package:fmtr/provider/output_provider.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {

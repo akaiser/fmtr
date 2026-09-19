@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:fmtr/components/_text_footer.dart';
 import 'package:fmtr/provider/output_provider.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 class const OutputText({super.key}) extends StatelessWidget {
